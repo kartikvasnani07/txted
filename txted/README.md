@@ -9,29 +9,51 @@ portability. It is designed for anyone who wants to quickly edit text from the
 command line or learn about text editing software at a deeper level.
 
 -------------------------------------------------------------------------------
+Project Structure
+-------------------------------------------------------------------------------
+Your installed package will follow this structure:
+
+    txted/
+    │
+    ├── txted/
+    │   ├── __init__.py
+    │   ├── __main__.py
+    │   └── editor.py
+    │
+    ├── README.txt
+    ├── pyproject.toml
+    ├── LICENSE
+    └── .gitignore
+
+-------------------------------------------------------------------------------
 Installation
 -------------------------------------------------------------------------------
+TXTed can be installed directly from PyPI. Ensure you have Python 3.8 or newer.
 
-Requirements:
-- Python 3.8 or higher
+1. From PyPI (recommended):
+   pip install txted
+
+   After installation, simply type:
+   txted
+   to launch the editor.
+
+2. From TestPyPI (for trial testing):
+   pip install -i https://test.pypi.org/simple/ txted
+
+3. From source (developer installation):
+   Clone this repository and install locally:
+       git clone https://github.com/kartikvasnani07/txted.git
+       cd txted
+       pip install -e .
+
+Dependencies
+------------
+All dependencies are handled automatically during installation, but for reference:
+
+- Python 3.8+
+- curses (built-in on Linux/macOS, use `windows-curses` on Windows)
 - pyperclip (for clipboard support)
-- windows-curses (Windows only, to enable curses support)
-
-On Linux and macOS, curses comes bundled with Python by default.
-
-You can install TXTed directly with pip:
-
-    pip install txted
-
-Once installed, run the editor from anywhere in the terminal by typing:
-
-    txted
-
-If you are installing from source, clone the repository and install locally:
-
-    git clone https://github.com/kartikvasnani07/txted.git
-    cd txted
-    pip install -e .
+- setuptools (for building/installing)
 
 -------------------------------------------------------------------------------
 Usage
@@ -108,3 +130,13 @@ gradually improving features. Bug reports, new ideas, and documentation improvem
 are all encouraged. Pull requests should use descriptive commit messages and maintain 
 compatibility with Python 3.8+.
 
+-------------------------------------------------------------------------------
+Publishing to PyPI
+-------------------------------------------------------------------------------
+For maintainers: new versions can be published by incrementing the version in pyproject.toml
+and running:
+
+    python -m build
+    python -m twine upload dist/*
+
+This makes the latest release instantly available via pip install txted.
