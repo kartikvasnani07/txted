@@ -1,0 +1,2 @@
+[console_scripts]
+txted = txted.__main__:main

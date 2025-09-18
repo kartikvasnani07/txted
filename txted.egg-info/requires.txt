@@ -1,0 +1,4 @@
+pyperclip
+
+[:platform_system == "Windows"]
+windows-curses

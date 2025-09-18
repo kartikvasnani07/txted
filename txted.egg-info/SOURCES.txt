@@ -1,0 +1,10 @@
+pyproject.toml
+txted/__init.py
+txted/__main__.py
+txted/editor.py
+txted.egg-info/PKG-INFO
+txted.egg-info/SOURCES.txt
+txted.egg-info/dependency_links.txt
+txted.egg-info/entry_points.txt
+txted.egg-info/requires.txt
+txted.egg-info/top_level.txt
