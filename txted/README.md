@@ -59,6 +59,8 @@ All dependencies are handled automatically during installation, but for referenc
 Usage
 -------------------------------------------------------------------------------
 
+Youtube Video URL (It's not recommended to rely upon this completely) : [Youtube](https://youtu.be/WnWktT2ZIuc)
+
 When you launch TXTed, the main menu is displayed with the following options:
 
 1) New File          → Start editing a new empty file
