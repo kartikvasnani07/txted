@@ -13,7 +13,7 @@ Project Structure
 -------------------------------------------------------------------------------
 Your installed package will follow this structure:
 
-    txted/
+    project/
     │
     ├── txted/
     │   ├── __init__.py
