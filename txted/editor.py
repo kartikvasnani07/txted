@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# messy beginner edition - keeping features, added resize for popups
-# some comments are dumb and maybe wrong, that's intentional, hehe.
 
 import os
 import sys
@@ -19,18 +16,15 @@ except Exception as e:
     print("If you're on Windows: python -m pip install windows-curses")
     sys.exit(1)
 
-# optional clipboard
 try:
     import pyperclip
     CLIP_AVAILABLE = True
 except Exception:
     CLIP_AVAILABLE = False
 
-# history and home stuff
 HOME = os.path.expanduser("~")
 HISTORY_FILE = os.path.join(HOME, ".cli_text_editor_history.json")
 
-# language mapping - not perfect, but ok
 LANG_TO_EXT = {
     "python": ".py", "javascript": ".js", "typescript": ".ts",
     "c/c++": ".c", "java": ".java", "html": ".html", "css": ".css",
@@ -38,7 +32,6 @@ LANG_TO_EXT = {
 }
 EXT_TO_LANG = {v: k for k, v in LANG_TO_EXT.items()}
 
-# python keywords for minimal highlight
 PY_KEYWORDS = set((
     "False", "None", "True", "and", "as", "assert", "async", "await",
     "break", "class", "continue", "def", "del", "elif", "else", "except",
@@ -46,7 +39,6 @@ PY_KEYWORDS = set((
     "nonlocal", "not", "or", "pass", "raise", "return", "try", "while", "with", "yield"
 ))
 
-# ---------- history helpers ----------
 def load_history():
     # maybe empty file, so handle errors, hehe
     try:
@@ -117,7 +109,7 @@ class UndoStack:
             return self.stack[self.index]
         return None
 
-# ---------- main editor ----------
+# main editor 
 class Editor:
     PAIRS = {"{": "}", "[": "]", "(" : ")", "<": ">", '"': '"', "'": "'"}
     OPENERS = set(PAIRS.keys())
@@ -155,12 +147,12 @@ class Editor:
     def _init_curses(self):
         curses.start_color()
         curses.use_default_colors()
-        curses.init_pair(1, curses.COLOR_CYAN, -1)   # gutter
-        curses.init_pair(2, curses.COLOR_BLACK, curses.COLOR_BLUE)  # current line
-        curses.init_pair(3, curses.COLOR_YELLOW, -1) # keyword
-        curses.init_pair(4, curses.COLOR_GREEN, -1)  # strings
-        curses.init_pair(5, curses.COLOR_MAGENTA, -1) # comments
-        curses.init_pair(6, curses.COLOR_RED, -1)    # numbers
+        curses.init_pair(1, curses.COLOR_CYAN, -1)   
+        curses.init_pair(2, curses.COLOR_BLACK, curses.COLOR_BLUE)  
+        curses.init_pair(3, curses.COLOR_YELLOW, -1) 
+        curses.init_pair(4, curses.COLOR_GREEN, -1)  
+        curses.init_pair(5, curses.COLOR_MAGENTA, -1) 
+        curses.init_pair(6, curses.COLOR_RED, -1)    
         self.c_gutter = curses.color_pair(1)
         self.c_cur = curses.color_pair(2)
         self.c_kw = curses.color_pair(3)
@@ -250,7 +242,7 @@ class Editor:
             self.stdscr.addstr(self.height - 1, 0, status_line[:self.width-1], curses.A_REVERSE)
         except curses.error:
             pass
-        # cursor pos adjust
+        # cursor pos adjuster
         screen_y = self.cursor_y - self.top_line
         screen_x = self.cursor_x - self.left_col + self.gutter_width
         visible_h = self.height - 2
@@ -402,7 +394,7 @@ class Editor:
             add_to_history(self.filename)
             return True
         except Exception as e:
-            # show errors
+    
             try:
                 self._prompt_msg(f"Save error: {e}")
             except Exception:
@@ -422,7 +414,7 @@ class Editor:
         self._show_popup(txt)
 
     def _prompt(self, prompt_text):
-        # recomputse size in case terminal resized before prompting
+        # recomputing size in case terminal resized before prompting
         self.height, self.width = self.stdscr.getmaxyx()
         try:
             if curses.is_term_resized(self.height, self.width):
@@ -608,8 +600,6 @@ class Editor:
                 pass
         win.refresh(); win.getch()
         self.stdscr.touchwin(); self.stdscr.refresh()
-
-    # search
     def _find_all(self, pattern):
         self.search_pattern = pattern
         self.search_matches = []
@@ -643,7 +633,7 @@ class Editor:
         self.search_index = (self.search_index - 1) % len(self.search_matches)
         y,x,l = self.search_matches[self.search_index]; self.cursor_y, self.cursor_x = y, x
 
-    # command-mode ':'
+    # command_mode ':'
     def _command_mode(self):
         cmd = self._prompt(':')
         if not cmd: return
@@ -810,7 +800,7 @@ Press Esc, q, or x to close this manual and return to editing.
     # main run loop - adding resize check here as well
     def run(self):
         while True:
-            # check if window size changed then updating the size acc.
+            # checking if window size changed then updating the size acc.
             try:
                 if curses.is_term_resized(self.height, self.width):
                     self.height, self.width = self.stdscr.getmaxyx()
@@ -857,8 +847,7 @@ Press Esc, q, or x to close this manual and return to editing.
                 self._next_match(); continue
             if ch == ord('N') and self.mode == 'NORMAL':
                 self._prev_match(); continue
-
-            #NORMAL mode action keys
+                
             if self.mode == 'NORMAL':
                 
                 if ch == ord('s'):
