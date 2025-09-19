@@ -20,7 +20,7 @@ Your installed package will follow this structure:
     │   ├── __main__.py
     │   └── editor.py
     │
-    ├── README.txt
+    ├── README.md
     ├── pyproject.toml
     ├── LICENSE
     └── .gitignore
