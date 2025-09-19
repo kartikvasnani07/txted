@@ -59,7 +59,7 @@ All dependencies are handled automatically during installation, but for referenc
 Usage
 -------------------------------------------------------------------------------
 
-Youtube Video URL (It's not recommended to rely upon this completely) : [Youtube](https://youtu.be/WnWktT2ZIuc)
+Youtube Video URL (It's not recommended to rely upon this completely) : https://youtu.be/KNgttW1L3sU
 
 When you launch TXTed, the main menu is displayed with the following options:
 
